@@ -1,1 +1,3 @@
-console.log("hello mentoring");
+const userName: string = "Andrew"
+
+console.log("Hello, ", userName, "!")
