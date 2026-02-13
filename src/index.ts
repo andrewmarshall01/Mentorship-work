@@ -13,7 +13,7 @@ const run = async () => {
     res.send('Hello World!')
   })
 
-  app.get('/graphql', 
+  app.use('/graphql', 
     cors(),
     express.json(),
     expressMiddleware(gqlServer),
