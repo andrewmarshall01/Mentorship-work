@@ -1,7 +1,7 @@
 import express from 'express'
 import { resolve } from 'node:dns'
 import cors from 'cors'
-import { expressMiddleware } from '@apollo/server/express4';
+import { expressMiddleware } from '@as-integrations/express5';
 import { runGqlServer } from './graphql'
 
 const run = async () => {
