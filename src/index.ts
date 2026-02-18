@@ -1,30 +1,9 @@
-import express from 'express'
-import { resolve } from 'node:dns'
-import cors from 'cors'
-import { expressMiddleware } from '@as-integrations/express5';
-import { runGqlServer } from './graphql'
+import { runHttpServer } from "./http/http";
+import { runGqlServer } from "./graphQL/graphql";
 
-const run = async () => {
-  const app = express()
-  const port = 3000
-  const gqlServer = await runGqlServer()
+const runApplication = async () => {
+  const server = await runGqlServer();
+  runHttpServer(server);
+};
 
-  app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
-
-  app.use('/graphql', 
-    cors(),
-    express.json(),
-    expressMiddleware(gqlServer),
-  )
-
-  new Promise(function(resolve, _reject) {
-      app.listen(port, () => {
-      console.log(`Example app listening on port ${port}`)
-      resolve(app)
-      })
-  })
-}
-
-run()
+runApplication();
