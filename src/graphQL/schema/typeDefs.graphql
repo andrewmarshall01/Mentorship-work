@@ -1,8 +1,9 @@
 type Query {
   helloWorld: String!
   getPersonByName(name: String!): Person!
-  getCarByOwnerName(ownerName: String!): Car!
-  getHikingTrailByDifficulty(difficulty: DificultyRanking!): HikingTrail
+  getCarByOwner(name: String!, age: Int!, job: String): Car!
+  getHikingTrailByDifficulty(difficulty: DificultyRanking!): HikingTrail!
+  getHikingTrailsByRating(rating: Int): HikingTrail!
 }
 
 type Person {
@@ -12,7 +13,7 @@ type Person {
 }
 
 type Car {
-  ownerName: String!
+  owner: Person!
   licencePlate: String!
   colour: String
 }
@@ -28,4 +29,6 @@ type HikingTrail {
   distance: Float!
   elevation: Float!
   difficulty: DificultyRanking!
+  parking: Boolean
+  rating: Int
 }
