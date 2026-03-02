@@ -1,11 +1,10 @@
-import { GraphQLError } from "graphql";
-
-enum DificultyRanking {
-  "BEGGINER",
-  "INTERMEDIATE",
-  "HARD",
-  "EXPERT",
-}
+import {
+  getHikingTrailByDifficulty,
+  DificultyRanking,
+  getHikingTrailsByRating,
+  getHikingTrailByName,
+} from "./outdoorActivityResolvers/hikingTrailResolvers";
+import { getClimbsByHikingTrail } from "./outdoorActivityResolvers/climbingResolvers";
 
 type CarArgs = {
   name: string;
@@ -30,32 +29,10 @@ export const resolvers = {
       licencePlate: "FD09 XPX",
       colour: "white",
     }),
-    getHikingTrailByDifficulty: (
-      _: unknown,
-      args: { difficulty: DificultyRanking },
-    ) => ({
-      distance: 10.2,
-      elevation: 1.1,
-      difficulty: args.difficulty,
-      parking: true,
-      rating: 5,
-    }),
-    getHikingTrailsByRating: (_: unknown, args: { rating: number }) => {
-      if (
-        args.rating > 5 ||
-        args.rating < 1 ||
-        !Number.isInteger(args.rating)
-      ) {
-        throw new GraphQLError("rating must be an integer between 1 and five");
-      }
-      return {
-        distance: 10.2,
-        elevation: 1.1,
-        difficulty: "HARD",
-        parking: true,
-        rating: args.rating,
-      };
-    },
+    getHikingTrailByDifficulty,
+    getHikingTrailsByRating,
+    getHikingTrailByName,
+    getClimbsByHikingTrail,
   },
 };
 // Question for Charlotte: when an arg will be a described type like in car what is best practice
