@@ -4,6 +4,7 @@ export const getClimbsByHikingTrail = (
     trailName: string;
   },
 ) => ({
+  routeName: "testR",
   difficulty: "V3",
   completedBy: [
     {
@@ -24,5 +25,11 @@ export const getClimbsByHikingTrail = (
   ],
   alongTrail: {
     trailName: args.trailName,
+    distance: 10.2,
+    elevation: 1.1,
+    difficulty: "HARD",
+    parking: true,
+    rating: 5,
+    climbingRoutes: [],
   },
 });

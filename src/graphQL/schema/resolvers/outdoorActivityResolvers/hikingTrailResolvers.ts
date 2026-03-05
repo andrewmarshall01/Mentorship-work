@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql/error/GraphQLError";
+import { getClimbsByHikingTrail } from "./climbingResolvers";
 
 export enum DificultyRanking {
   "BEGGINER",
@@ -29,6 +30,7 @@ export const getHikingTrailByName = (
   difficulty: "HARD",
   parking: true,
   rating: 5,
+  climbingRoutes: [getClimbsByHikingTrail(_, { trailName: args.trailName })],
 });
 
 export const getHikingTrailsByRating = (
@@ -46,6 +48,14 @@ export const getHikingTrailsByRating = (
       difficulty: "HARD",
       parking: true,
       rating: args.rating,
+      climbingRoutes: [
+        {
+          routeName: "climb1",
+          difficulty: "V1",
+          completedBy: [{ name: "Andrew" }, { name: "Bndrew" }],
+          alongTrail: "Edan Valley2",
+        },
+      ],
     },
     {
       trailName: "Edan Valley2",
@@ -54,6 +64,14 @@ export const getHikingTrailsByRating = (
       difficulty: "HARD",
       parking: false,
       rating: args.rating,
+      climbingRoutes: [
+        {
+          routeName: "climb2",
+          difficulty: "V1",
+          completedBy: [{ name: "Andrew" }, { name: "Bndrew" }],
+          alongTrail: "Edan Valley2",
+        },
+      ],
     },
   ];
 };
