@@ -30,7 +30,7 @@ export const getHikingTrailByName = (
   difficulty: "HARD",
   parking: true,
   rating: 5,
-  climbingRoutes: [getClimbsByHikingTrail(_, { trailName: args.trailName })],
+  climbingRoutes: [getClimbsByHikingTrail(_, { trailName: args.trailName })], // what is the best practice for this? allow for one or inf layers
 });
 
 export const getHikingTrailsByRating = (
