@@ -1,5 +1,6 @@
 import { GraphQLError } from "graphql/error/GraphQLError";
-import { getClimbsByHikingTrail } from "./climbingResolvers";
+import { getClimbsOnHikingTrail } from "../../../../lib/ourdoorActivities/climbing";
+import { getHikingTrailsByRating as getHikingTrailsByRatingLib } from "../../../../lib/ourdoorActivities/hiking";
 
 export enum DificultyRanking {
   "BEGGINER",
@@ -30,48 +31,8 @@ export const getHikingTrailByName = (
   difficulty: "HARD",
   parking: true,
   rating: 5,
-  climbingRoutes: [getClimbsByHikingTrail(_, { trailName: args.trailName })], // what is the best practice for this? allow for one or inf layers
+  climbingRoutes: [getClimbsOnHikingTrail(args.trailName)],
 });
 
-export const getHikingTrailsByRating = (
-  _: unknown,
-  args: { rating: number },
-) => {
-  if (args.rating > 5 || args.rating < 1 || !Number.isInteger(args.rating)) {
-    throw new GraphQLError("rating must be an integer between 1 and five");
-  }
-  return [
-    {
-      trailName: "Edan Valley",
-      distance: 10.2,
-      elevation: 1.1,
-      difficulty: "HARD",
-      parking: true,
-      rating: args.rating,
-      climbingRoutes: [
-        {
-          routeName: "climb1",
-          difficulty: "V1",
-          completedBy: [{ name: "Andrew" }, { name: "Bndrew" }],
-          alongTrail: "Edan Valley2",
-        },
-      ],
-    },
-    {
-      trailName: "Edan Valley2",
-      distance: 10.2,
-      elevation: 1.1,
-      difficulty: "HARD",
-      parking: false,
-      rating: args.rating,
-      climbingRoutes: [
-        {
-          routeName: "climb2",
-          difficulty: "V1",
-          completedBy: [{ name: "Andrew" }, { name: "Bndrew" }],
-          alongTrail: "Edan Valley2",
-        },
-      ],
-    },
-  ];
-};
+export const getHikingTrailsByRating = (_: unknown, args: { rating: number }) =>
+  getHikingTrailsByRatingLib(args.rating);
