@@ -1,4 +1,7 @@
-import { getHikingTrailForClimb } from "../../../../lib/ourdoorActivities/climbing";
+import {
+  getHikingTrailForClimb,
+  getPeopleWhoCompletedClimb,
+} from "../../../../lib/ourdoorActivities/climbing";
 
 export const getClimbsByHikingTrail = (
   _: unknown,
@@ -27,3 +30,6 @@ export const getClimbsByHikingTrail = (
   ],
   alongTrail: getHikingTrailForClimb(args.trailName),
 });
+
+export const getPeopleByClimb = (_: unknown, args: { routeName: string }) =>
+  getPeopleWhoCompletedClimb(args.routeName);

@@ -6,6 +6,7 @@ type Query {
   getHikingTrailsByRating(rating: Int): [HikingTrail!]
   getClimbsByHikingTrail(trailName: String): ClimbingRoute
   getHikingTrailByName(trailName: String): HikingTrail
+  getPeopleByClimb(routeName: String!): [Person!]
 }
 
 type Person {

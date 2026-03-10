@@ -4,7 +4,10 @@ import {
   getHikingTrailsByRating,
   getHikingTrailByName,
 } from "./outdoorActivityResolvers/hikingTrailResolvers";
-import { getClimbsByHikingTrail } from "./outdoorActivityResolvers/climbingResolvers";
+import {
+  getClimbsByHikingTrail,
+  getPeopleByClimb,
+} from "./outdoorActivityResolvers/climbingResolvers";
 
 type CarArgs = {
   name: string;
@@ -33,6 +36,6 @@ export const resolvers = {
     getHikingTrailsByRating,
     getHikingTrailByName,
     getClimbsByHikingTrail,
+    getPeopleByClimb,
   },
 };
-// Question for Charlotte: when an arg will be a described type like in car what is best practice
