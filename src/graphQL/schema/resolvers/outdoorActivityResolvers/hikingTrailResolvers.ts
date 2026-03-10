@@ -1,6 +1,9 @@
 import { GraphQLError } from "graphql/error/GraphQLError";
 import { getClimbsOnHikingTrail } from "../../../../lib/ourdoorActivities/climbing";
-import { getHikingTrailsByRating as getHikingTrailsByRatingLib } from "../../../../lib/ourdoorActivities/hiking";
+import {
+  getHikingTrailsByDifficuly,
+  getHikingTrailsByRating as getHikingTrailsByRatingLib,
+} from "../../../../lib/ourdoorActivities/hiking";
 
 export enum DificultyRanking {
   "BEGGINER",
@@ -12,14 +15,7 @@ export enum DificultyRanking {
 export const getHikingTrailByDifficulty = (
   _: unknown,
   args: { difficulty: DificultyRanking },
-) => ({
-  trailName: "Edan Valley",
-  distance: 10.2,
-  elevation: 1.1,
-  difficulty: args.difficulty,
-  parking: true,
-  rating: 5,
-});
+) => getHikingTrailsByDifficuly(args.difficulty);
 
 export const getHikingTrailByName = (
   _: unknown,
