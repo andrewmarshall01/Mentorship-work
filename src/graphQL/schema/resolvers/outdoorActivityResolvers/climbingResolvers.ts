@@ -1,3 +1,8 @@
+import {
+  getHikingTrailForClimb,
+  getPeopleWhoCompletedClimb,
+} from "../../../../lib/ourdoorActivities/climbing";
+
 export const getClimbsByHikingTrail = (
   _: unknown,
   args: {
@@ -23,13 +28,8 @@ export const getClimbsByHikingTrail = (
       job: "dev",
     },
   ],
-  alongTrail: {
-    trailName: args.trailName,
-    distance: 10.2,
-    elevation: 1.1,
-    difficulty: "HARD",
-    parking: true,
-    rating: 5,
-    climbingRoutes: [],
-  },
+  alongTrail: getHikingTrailForClimb(args.trailName),
 });
+
+export const getPeopleByClimb = (_: unknown, args: { routeName: string }) =>
+  getPeopleWhoCompletedClimb(args.routeName);

@@ -3,9 +3,10 @@ type Query {
   getPersonByName(name: String!): Person!
   getCarByOwner(name: String!, age: Int!, job: String): Car!
   getHikingTrailByDifficulty(difficulty: DificultyRanking!): [HikingTrail!]
-  getHikingTrailsByRating(rating: Int): HikingTrail!
+  getHikingTrailsByRating(rating: Int): [HikingTrail!]
   getClimbsByHikingTrail(trailName: String): ClimbingRoute
   getHikingTrailByName(trailName: String): HikingTrail
+  getPeopleByClimb(routeName: String!): [Person!]
 }
 
 type Person {
