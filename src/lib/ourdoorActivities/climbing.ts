@@ -8,11 +8,13 @@ export const getHikingTrailForClimb = (trailName: string) => ({
 });
 
 export const getClimbsOnHikingTrail = (trailName: string) => {
-  {
-    const allClimbOnTrail = climbs.find(
-      (climb) => climb.alongTrail === trailName,
-    );
-    return allClimbOnTrail;
+  const allClimbsOnTrail = climbs.filter(
+    (climb) => climb.alongTrail === trailName,
+  );
+  if (allClimbsOnTrail && allClimbsOnTrail.length > 0) {
+    return allClimbsOnTrail;
+  } else {
+    return null;
   }
 };
 

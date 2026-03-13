@@ -1,10 +1,10 @@
 import { GraphQLError } from "graphql";
 
 export enum DificultyRanking {
-  "BEGGINER",
-  "INTERMEDIATE",
-  "HARD",
-  "EXPERT",
+  BEGINNER = "BEGINNER",
+  INTERMEDIATE = "INTERMEDIATE",
+  HARD = "HARD",
+  EXPERT = "EXPERT",
 }
 
 const trails = [
@@ -12,7 +12,7 @@ const trails = [
     trailName: "Birch Loop",
     distance: 3.2,
     elevation: 0.2,
-    difficulty: DificultyRanking.BEGGINER,
+    difficulty: DificultyRanking.BEGINNER,
     parking: true,
     rating: 1,
   },
@@ -58,10 +58,8 @@ export const getHikingTrailsByRating = (targetRating: number) => {
   return trails.filter((trail) => trail.rating === targetRating);
 };
 
-export const getHikingTrailsByDifficuly = (
+export const getHikingTrailsByDifficulty = (
   targetDifficulty: DificultyRanking,
 ) => {
-  {
-    return trails.filter((trail) => trail.difficulty === targetDifficulty);
-  }
+  return trails.filter((trail) => trail.difficulty === targetDifficulty);
 };

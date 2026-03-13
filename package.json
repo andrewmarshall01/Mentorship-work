@@ -9,8 +9,7 @@
   },
   "scripts": {
     "build": "rimraf ./dist && tsc && copyfiles --up 1 **/*.graphql ./dist ",
-    "start": "npm run build && node dist/index.js",
-    "test": "npm run build && node --test dist"
+    "start": "npm run build && node dist/index.js"
   },
   "devDependencies": {
     "@types/cors": "2.8.19",

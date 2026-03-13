@@ -22,7 +22,7 @@ type Car {
 }
 
 enum DificultyRanking {
-  BEGGINER
+  BEGINNER
   INTERMEDIATE
   HARD
   EXPERT

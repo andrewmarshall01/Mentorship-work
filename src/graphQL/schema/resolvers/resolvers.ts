@@ -1,6 +1,5 @@
 import {
   getHikingTrailByDifficulty,
-  DificultyRanking,
   getHikingTrailsByRating,
   getHikingTrailByName,
 } from "./outdoorActivityResolvers/hikingTrailResolvers";
