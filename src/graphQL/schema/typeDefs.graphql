@@ -1,7 +1,4 @@
 type Query {
-  helloWorld: String!
-  getPersonByName(name: String!): Person!
-  getCarByOwner(name: String!, age: Int!, job: String): Car!
   getHikingTrailByDifficulty(difficulty: DificultyRanking!): [HikingTrail!]
   getHikingTrailsByRating(rating: Int!): [HikingTrail!]
   getClimbsByHikingTrail(trailName: String!): [ClimbingRoute]
@@ -13,12 +10,6 @@ type Person {
   name: String!
   age: Int!
   job: String
-}
-
-type Car {
-  owner: Person!
-  licencePlate: String!
-  colour: String
 }
 
 enum DificultyRanking {
@@ -36,6 +27,7 @@ type HikingTrail {
   parking: Boolean
   rating: Int
   climbingRoutes: [ClimbingRoute]
+  climbAverageDifficulty: VScale
 }
 
 enum VScale {
@@ -54,6 +46,6 @@ enum VScale {
 type ClimbingRoute {
   routeName: String!
   difficulty: VScale!
-  completedBy: [Person]
+  completedBy: [Person!]!
   alongTrail: String!
 }
