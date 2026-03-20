@@ -1,20 +1,15 @@
+import { Resolvers } from "../../../lib/types/generated";
 import {
-  getHikingTrailByDifficulty,
+  getHikingTrailsByDifficulty,
+  getHikingTrailsByName,
   getHikingTrailsByRating,
-  getHikingTrailByName,
-} from "./outdoorActivityResolvers/hikingTrailResolvers";
+} from "../../../lib/ourdoorActivities/hiking";
 import {
-  getClimbsByHikingTrail,
-  getPeopleByClimb,
-} from "./outdoorActivityResolvers/climbingResolvers";
+  getClimbsOnHikingTrail,
+  getPeopleWhoCompletedClimb,
+} from "../../../lib/ourdoorActivities/climbing";
 
-type CarArgs = {
-  name: string;
-  age: number;
-  job: string;
-};
-
-export const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
     helloWorld: () => "hello world",
     getPersonByName: (_: unknown, args: { name: string }) => ({
@@ -22,7 +17,7 @@ export const resolvers = {
       age: 20,
       job: "job",
     }),
-    getCarByOwner: (_: unknown, args: CarArgs) => ({
+    getCarByOwner: (_: unknown, args) => ({
       owner: {
         name: args.name,
         age: args.age,
@@ -31,10 +26,15 @@ export const resolvers = {
       licencePlate: "FD09 XPX",
       colour: "white",
     }),
-    getHikingTrailByDifficulty,
-    getHikingTrailsByRating,
-    getHikingTrailByName,
-    getClimbsByHikingTrail,
-    getPeopleByClimb,
+    getHikingTrailByDifficulty: (_: unknown, args) =>
+      getHikingTrailsByDifficulty(args.difficulty),
+    getHikingTrailsByRating: (_: unknown, args) =>
+      getHikingTrailsByRating(args.rating),
+    getHikingTrailByName: (_: unknown, args) =>
+      getHikingTrailsByName(args.trailName),
+    getClimbsByHikingTrail: (_: unknown, args) =>
+      getClimbsOnHikingTrail(args.trailName),
+    getPeopleByClimb: (_: unknown, args) =>
+      getPeopleWhoCompletedClimb(args.routeName),
   },
 };

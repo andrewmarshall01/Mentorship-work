@@ -1,3 +1,5 @@
+import { VScale } from "../types/generated";
+
 export const getHikingTrailForClimb = (trailName: string) => ({
   trailName: trailName,
   distance: 10.2,
@@ -14,7 +16,7 @@ export const getClimbsOnHikingTrail = (trailName: string) => {
   if (allClimbsOnTrail && allClimbsOnTrail.length > 0) {
     return allClimbsOnTrail;
   } else {
-    return null;
+    return undefined;
   }
 };
 
@@ -26,7 +28,7 @@ export const getPeopleWhoCompletedClimb = (routeName: string) => {
 const climbs = [
   {
     routeName: "Granite Start",
-    difficulty: "V1",
+    difficulty: VScale.V1,
     completedBy: [
       {
         name: "Andrew",
@@ -38,7 +40,7 @@ const climbs = [
   },
   {
     routeName: "Pine Wall",
-    difficulty: "V2",
+    difficulty: VScale.V2,
     completedBy: [
       {
         name: "Bndrew",
@@ -55,7 +57,7 @@ const climbs = [
   },
   {
     routeName: "Moss Traverse",
-    difficulty: "V3",
+    difficulty: VScale.V3,
     completedBy: [
       {
         name: "Andrew",
@@ -77,7 +79,7 @@ const climbs = [
   },
   {
     routeName: "Sky Crack",
-    difficulty: "V4",
+    difficulty: VScale.V4,
     completedBy: [
       {
         name: "Cndrew",
@@ -89,7 +91,7 @@ const climbs = [
   },
   {
     routeName: "Summit Overhang",
-    difficulty: "V5",
+    difficulty: VScale.V5,
     completedBy: [
       {
         name: "Andrew",
