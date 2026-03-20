@@ -9,9 +9,14 @@
   },
   "scripts": {
     "build": "rimraf ./dist && tsc && copyfiles --up 1 **/*.graphql ./dist ",
-    "start": "npm run build && node dist/index.js"
+    "start": "npm run build && node dist/index.js",
+    "codegen": "graphql-codegen --config ./codegen.yml"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^6.2.1",
+    "@graphql-codegen/typed-document-node": "^6.1.7",
+    "@graphql-codegen/typescript": "^5.0.9",
+    "@graphql-codegen/typescript-resolvers": "^5.1.7",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",
     "@types/node": "^22.8.6",

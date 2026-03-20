@@ -1,18 +1,11 @@
-import { GraphQLError } from "graphql";
-
-export enum DificultyRanking {
-  BEGINNER = "BEGINNER",
-  INTERMEDIATE = "INTERMEDIATE",
-  HARD = "HARD",
-  EXPERT = "EXPERT",
-}
+import { DificultyRanking } from "../../lib/types/generated";
 
 const trails = [
   {
     trailName: "Birch Loop",
     distance: 3.2,
     elevation: 0.2,
-    difficulty: DificultyRanking.BEGINNER,
+    difficulty: DificultyRanking.Beginner,
     parking: true,
     rating: 1,
   },
@@ -20,7 +13,7 @@ const trails = [
     trailName: "Raven Ridge",
     distance: 5.8,
     elevation: 0.45,
-    difficulty: DificultyRanking.INTERMEDIATE,
+    difficulty: DificultyRanking.Intermediate,
     parking: true,
     rating: 2,
   },
@@ -28,7 +21,7 @@ const trails = [
     trailName: "Cedar Pass",
     distance: 8.1,
     elevation: 0.9,
-    difficulty: DificultyRanking.INTERMEDIATE,
+    difficulty: DificultyRanking.Intermediate,
     parking: false,
     rating: 3,
   },
@@ -36,7 +29,7 @@ const trails = [
     trailName: "Granite Steps",
     distance: 10.4,
     elevation: 1.3,
-    difficulty: DificultyRanking.HARD,
+    difficulty: DificultyRanking.Hard,
     parking: true,
     rating: 4,
   },
@@ -44,7 +37,7 @@ const trails = [
     trailName: "Falcon Summit",
     distance: 14.6,
     elevation: 1.9,
-    difficulty: DificultyRanking.EXPERT,
+    difficulty: DificultyRanking.Expert,
     parking: false,
     rating: 5,
   },
@@ -52,7 +45,7 @@ const trails = [
 
 export const getHikingTrailsByRating = (targetRating: number) => {
   if (targetRating > 5 || targetRating < 1 || !Number.isInteger(targetRating)) {
-    throw new GraphQLError("rating must be an integer between 1 and five");
+    throw new Error("rating must be an integer between 1 and five");
   }
 
   return trails.filter((trail) => trail.rating === targetRating);
@@ -63,3 +56,6 @@ export const getHikingTrailsByDifficulty = (
 ) => {
   return trails.filter((trail) => trail.difficulty === targetDifficulty);
 };
+
+export const getHikingTrailsByName = (targetName: string) =>
+  trails.find((trail) => trail.trailName === targetName);
