@@ -1,4 +1,4 @@
-import { Resolvers } from "../../../lib/types/generated";
+import { Resolvers, VScale } from "../../../lib/types/generated";
 import {
   getHikingTrailsByDifficulty,
   getHikingTrailsByName,
@@ -11,21 +11,6 @@ import {
 
 export const resolvers: Resolvers = {
   Query: {
-    helloWorld: () => "hello world",
-    getPersonByName: (_: unknown, args: { name: string }) => ({
-      name: args.name,
-      age: 20,
-      job: "job",
-    }),
-    getCarByOwner: (_: unknown, args) => ({
-      owner: {
-        name: args.name,
-        age: args.age,
-        job: args.job,
-      },
-      licencePlate: "FD09 XPX",
-      colour: "white",
-    }),
     getHikingTrailByDifficulty: (_: unknown, args) =>
       getHikingTrailsByDifficulty(args.difficulty),
     getHikingTrailsByRating: (_: unknown, args) =>
@@ -36,5 +21,24 @@ export const resolvers: Resolvers = {
       getClimbsOnHikingTrail(args.trailName),
     getPeopleByClimb: (_: unknown, args) =>
       getPeopleWhoCompletedClimb(args.routeName),
+  },
+  HikingTrail: {
+    allClimbsonTrailDiff: (parent) => {
+      if (!parent.trailName) {
+        return [];
+      }
+
+      if (parent.allClimbsonTrailDiff.length > 0) {
+        return parent.allClimbsonTrailDiff;
+      }
+
+      const climbsOnTrail = getClimbsOnHikingTrail(parent.trailName);
+
+      if (!climbsOnTrail) {
+        return [];
+      }
+
+      return climbsOnTrail.map((climb) => climb.difficulty);
+    },
   },
 };

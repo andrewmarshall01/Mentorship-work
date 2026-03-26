@@ -1,6 +1,6 @@
-import { DificultyRanking } from "../../lib/types/generated";
+import { DificultyRanking, HikingTrail } from "../../lib/types/generated";
 
-const trails = [
+const trails: HikingTrail[] = [
   {
     trailName: "Birch Loop",
     distance: 3.2,
@@ -8,6 +8,7 @@ const trails = [
     difficulty: DificultyRanking.Beginner,
     parking: true,
     rating: 1,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Raven Ridge",
@@ -16,6 +17,7 @@ const trails = [
     difficulty: DificultyRanking.Intermediate,
     parking: true,
     rating: 2,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Cedar Pass",
@@ -24,6 +26,7 @@ const trails = [
     difficulty: DificultyRanking.Intermediate,
     parking: false,
     rating: 3,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Granite Steps",
@@ -32,6 +35,7 @@ const trails = [
     difficulty: DificultyRanking.Hard,
     parking: true,
     rating: 4,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Falcon Summit",
@@ -40,10 +44,13 @@ const trails = [
     difficulty: DificultyRanking.Expert,
     parking: false,
     rating: 5,
+    allClimbsonTrailDiff: [],
   },
 ];
 
-export const getHikingTrailsByRating = (targetRating: number) => {
+export const getHikingTrailsByRating = (
+  targetRating: number,
+): HikingTrail[] => {
   if (targetRating > 5 || targetRating < 1 || !Number.isInteger(targetRating)) {
     throw new Error("rating must be an integer between 1 and five");
   }
@@ -53,9 +60,11 @@ export const getHikingTrailsByRating = (targetRating: number) => {
 
 export const getHikingTrailsByDifficulty = (
   targetDifficulty: DificultyRanking,
-) => {
+): HikingTrail[] => {
   return trails.filter((trail) => trail.difficulty === targetDifficulty);
 };
 
-export const getHikingTrailsByName = (targetName: string) =>
+export const getHikingTrailsByName = (
+  targetName: string,
+): HikingTrail | undefined =>
   trails.find((trail) => trail.trailName === targetName);

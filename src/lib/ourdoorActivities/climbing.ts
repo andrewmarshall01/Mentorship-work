@@ -1,15 +1,24 @@
-import { VScale } from "../types/generated";
+import {
+  ClimbingRoute,
+  DificultyRanking,
+  HikingTrail,
+  Person,
+  VScale,
+} from "../types/generated";
 
-export const getHikingTrailForClimb = (trailName: string) => ({
+export const getHikingTrailForClimb = (trailName: string): HikingTrail => ({
   trailName: trailName,
   distance: 10.2,
   elevation: 1.1,
-  difficulty: "HARD",
+  difficulty: DificultyRanking.Hard,
   parking: true,
   rating: 5,
+  allClimbsonTrailDiff: [],
 });
 
-export const getClimbsOnHikingTrail = (trailName: string) => {
+export const getClimbsOnHikingTrail = (
+  trailName: string,
+): ClimbingRoute[] | undefined => {
   const allClimbsOnTrail = climbs.filter(
     (climb) => climb.alongTrail === trailName,
   );
@@ -20,12 +29,14 @@ export const getClimbsOnHikingTrail = (trailName: string) => {
   }
 };
 
-export const getPeopleWhoCompletedClimb = (routeName: string) => {
+export const getPeopleWhoCompletedClimb = (
+  routeName: string,
+): Person[] | undefined => {
   const thisClimb = climbs.find((climb) => climb.routeName === routeName);
   return thisClimb?.completedBy;
 };
 
-const climbs = [
+const climbs: ClimbingRoute[] = [
   {
     routeName: "Granite Start",
     difficulty: VScale.V1,
