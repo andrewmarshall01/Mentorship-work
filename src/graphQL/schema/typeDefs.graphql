@@ -46,6 +46,7 @@ enum VScale {
 type ClimbingRoute {
   routeName: String!
   difficulty: VScale!
+  fontDifficulty: String!
   completedBy: [Person!]!
   alongTrail: String!
 }

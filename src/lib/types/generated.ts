@@ -21,6 +21,7 @@ export type ClimbingRoute = {
   alongTrail: Scalars['String']['output'];
   completedBy: Array<Person>;
   difficulty: VScale;
+  fontDifficulty: Scalars['String']['output'];
   routeName: Scalars['String']['output'];
 };
 
@@ -198,6 +199,7 @@ export type ClimbingRouteResolvers<ContextType = any, ParentType extends Resolve
   alongTrail?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   completedBy?: Resolver<Array<ResolversTypes['Person']>, ParentType, ContextType>;
   difficulty?: Resolver<ResolversTypes['VScale'], ParentType, ContextType>;
+  fontDifficulty?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   routeName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 

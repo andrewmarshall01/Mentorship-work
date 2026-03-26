@@ -40,6 +40,7 @@ const climbs: ClimbingRoute[] = [
   {
     routeName: "Granite Start",
     difficulty: VScale.V1,
+    fontDifficulty: "5",
     completedBy: [
       {
         name: "Andrew",
@@ -52,6 +53,7 @@ const climbs: ClimbingRoute[] = [
   {
     routeName: "Pine Wall",
     difficulty: VScale.V2,
+    fontDifficulty: "",
     completedBy: [
       {
         name: "Bndrew",
@@ -69,6 +71,7 @@ const climbs: ClimbingRoute[] = [
   {
     routeName: "Moss Traverse",
     difficulty: VScale.V3,
+    fontDifficulty: "6A-6A+",
     completedBy: [
       {
         name: "Andrew",
@@ -91,6 +94,7 @@ const climbs: ClimbingRoute[] = [
   {
     routeName: "Sky Crack",
     difficulty: VScale.V4,
+    fontDifficulty: "",
     completedBy: [
       {
         name: "Cndrew",
@@ -103,6 +107,7 @@ const climbs: ClimbingRoute[] = [
   {
     routeName: "Summit Overhang",
     difficulty: VScale.V5,
+    fontDifficulty: "",
     completedBy: [
       {
         name: "Andrew",

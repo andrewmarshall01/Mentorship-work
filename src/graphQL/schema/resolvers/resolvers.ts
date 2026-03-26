@@ -41,4 +41,35 @@ export const resolvers: Resolvers = {
       return climbsOnTrail.map((climb) => climb.difficulty);
     },
   },
+  ClimbingRoute: {
+    fontDifficulty: (parent) => {
+      if (parent.fontDifficulty !== "") {
+        return parent.fontDifficulty;
+      }
+      switch (parent.difficulty) {
+        case VScale.V1:
+          return "5";
+        case VScale.V2:
+          return "5+";
+        case VScale.V3:
+          return "6A-6A+";
+        case VScale.V4:
+          return "6B-6B+";
+        case VScale.V5:
+          return "6C-6C+";
+        case VScale.V6:
+          return "7A";
+        case VScale.V7:
+          return "7A+";
+        case VScale.V8:
+          return "7B-7B+";
+        case VScale.V9:
+          return "7B+-7C";
+        case VScale.V10:
+          return "7C+";
+        default:
+          return "";
+      }
+    },
+  },
 };
