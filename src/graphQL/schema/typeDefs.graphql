@@ -27,7 +27,7 @@ type HikingTrail {
   parking: Boolean
   rating: Int
   climbingRoutes: [ClimbingRoute]
-  climbAverageDifficulty: VScale
+  allClimbsonTrailDiff: [VScale]!
 }
 
 enum VScale {

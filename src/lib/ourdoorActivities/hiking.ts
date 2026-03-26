@@ -8,6 +8,7 @@ const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Beginner,
     parking: true,
     rating: 1,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Raven Ridge",
@@ -16,6 +17,7 @@ const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Intermediate,
     parking: true,
     rating: 2,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Cedar Pass",
@@ -24,6 +26,7 @@ const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Intermediate,
     parking: false,
     rating: 3,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Granite Steps",
@@ -32,6 +35,7 @@ const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Hard,
     parking: true,
     rating: 4,
+    allClimbsonTrailDiff: [],
   },
   {
     trailName: "Falcon Summit",
@@ -40,6 +44,7 @@ const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Expert,
     parking: false,
     rating: 5,
+    allClimbsonTrailDiff: [],
   },
 ];
 

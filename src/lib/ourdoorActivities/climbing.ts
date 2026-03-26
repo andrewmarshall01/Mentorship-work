@@ -13,6 +13,7 @@ export const getHikingTrailForClimb = (trailName: string): HikingTrail => ({
   difficulty: DificultyRanking.Hard,
   parking: true,
   rating: 5,
+  allClimbsonTrailDiff: [],
 });
 
 export const getClimbsOnHikingTrail = (

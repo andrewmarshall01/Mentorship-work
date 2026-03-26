@@ -33,7 +33,7 @@ export enum DificultyRanking {
 
 export type HikingTrail = {
   __typename?: 'HikingTrail';
-  climbAverageDifficulty?: Maybe<VScale>;
+  allClimbsonTrailDiff: Array<Maybe<VScale>>;
   climbingRoutes?: Maybe<Array<Maybe<ClimbingRoute>>>;
   difficulty: DificultyRanking;
   distance: Scalars['Float']['output'];
@@ -202,7 +202,7 @@ export type ClimbingRouteResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type HikingTrailResolvers<ContextType = any, ParentType extends ResolversParentTypes['HikingTrail'] = ResolversParentTypes['HikingTrail']> = {
-  climbAverageDifficulty?: Resolver<Maybe<ResolversTypes['VScale']>, ParentType, ContextType>;
+  allClimbsonTrailDiff?: Resolver<Array<Maybe<ResolversTypes['VScale']>>, ParentType, ContextType>;
   climbingRoutes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ClimbingRoute']>>>, ParentType, ContextType>;
   difficulty?: Resolver<ResolversTypes['DificultyRanking'], ParentType, ContextType>;
   distance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
