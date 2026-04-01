@@ -1,4 +1,4 @@
-import { Resolvers, VScale } from "../../../lib/types/generated";
+import { Person, Resolvers, VScale } from "../../../lib/types/generated";
 import {
   getHikingTrailsByDifficulty,
   getHikingTrailsByName,
@@ -71,5 +71,43 @@ export const resolvers: Resolvers = {
           return "";
       }
     },
+    completedBy: (parent) => {
+      return parent.completedBy.map(async (person) => {
+        if (person.age === 0 || !person.job || person.job === "") {
+          const personDetails = await getPerson(person.name);
+          return {
+            ...person,
+            age: personDetails.age,
+            job: personDetails.job,
+          };
+        }
+        return person;
+      });
+    },
   },
+};
+
+const validatePersonType = (object: any): boolean => {
+  return true;
+};
+
+const getPerson = async (name: string): Promise<Person> => {
+  const responce = await fetch(
+    `http://localhost:4000/people/${name.toLowerCase()}`,
+  );
+  if (!responce.ok) {
+    throw new Error(`status:  ${responce.status}`);
+  }
+
+  const person = await responce.json();
+  console.log(person);
+  if (validatePersonType(person)) {
+    return person;
+  } else {
+    return {
+      name: name,
+      job: "",
+      age: 0,
+    };
+  }
 };

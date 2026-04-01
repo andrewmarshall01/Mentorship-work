@@ -43,9 +43,9 @@ const climbs: ClimbingRoute[] = [
     fontDifficulty: "5",
     completedBy: [
       {
-        name: "Andrew",
-        age: 24,
-        job: "dev",
+        name: "andrew",
+        age: 0,
+        job: "",
       },
     ],
     alongTrail: "Birch Loop",
