@@ -1,4 +1,4 @@
-import { Person, Resolvers, VScale } from "../../../lib/types/generated";
+import { Resolvers, VScale } from "../../../lib/types/generated";
 import {
   getHikingTrailsByDifficulty,
   getHikingTrailsByName,
@@ -7,6 +7,7 @@ import {
 import {
   getClimbsOnHikingTrail,
   getPeopleWhoCompletedClimb,
+  getPersonArray,
 } from "../../../lib/ourdoorActivities/climbing";
 
 export const resolvers: Resolvers = {
@@ -71,43 +72,24 @@ export const resolvers: Resolvers = {
           return "";
       }
     },
-    completedBy: (parent) => {
-      return parent.completedBy.map(async (person) => {
+    completedBy: async (parent) => {
+      const peopleNeedingData = parent.completedBy.filter(
+        (person) => person.age === 0 || !person.job || person.job === "",
+      );
+
+      if (peopleNeedingData.length === 0) {
+        return parent.completedBy;
+      }
+
+      const fetchedPeople = await getPersonArray(peopleNeedingData);
+
+      return parent.completedBy.map((person) => {
         if (person.age === 0 || !person.job || person.job === "") {
-          const personDetails = await getPerson(person.name);
-          return {
-            ...person,
-            age: personDetails.age,
-            job: personDetails.job,
-          };
+          const fetchedPerson = fetchedPeople.find((p) => p.id === person.id);
+          return fetchedPerson || person;
         }
         return person;
       });
     },
   },
-};
-
-const validatePersonType = (object: any): boolean => {
-  return true;
-};
-
-const getPerson = async (name: string): Promise<Person> => {
-  const responce = await fetch(
-    `http://localhost:4000/people/${name.toLowerCase()}`,
-  );
-  if (!responce.ok) {
-    throw new Error(`status:  ${responce.status}`);
-  }
-
-  const person = await responce.json();
-  console.log(person);
-  if (validatePersonType(person)) {
-    return person;
-  } else {
-    return {
-      name: name,
-      job: "",
-      age: 0,
-    };
-  }
 };
