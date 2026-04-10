@@ -3,8 +3,8 @@ import {
   DificultyRanking,
   HikingTrail,
   Person,
-  VScale,
 } from "../types/generated";
+import { climbs } from "./stubbedData/climbingStubbs";
 
 export const getHikingTrailForClimb = (trailName: string): HikingTrail => ({
   trailName: trailName,
@@ -36,90 +36,84 @@ export const getPeopleWhoCompletedClimb = (
   return thisClimb?.completedBy;
 };
 
-const climbs: ClimbingRoute[] = [
-  {
-    routeName: "Granite Start",
-    difficulty: VScale.V1,
-    fontDifficulty: "5",
-    completedBy: [
-      {
-        name: "Andrew",
-        age: 24,
-        job: "dev",
-      },
-    ],
-    alongTrail: "Birch Loop",
-  },
-  {
-    routeName: "Pine Wall",
-    difficulty: VScale.V2,
-    fontDifficulty: "",
-    completedBy: [
-      {
-        name: "Bndrew",
-        age: 24,
-        job: "dev",
-      },
-      {
-        name: "Cndrew",
-        age: 24,
-        job: "dev",
-      },
-    ],
-    alongTrail: "Raven Ridge",
-  },
-  {
-    routeName: "Moss Traverse",
-    difficulty: VScale.V3,
-    fontDifficulty: "6A-6A+",
-    completedBy: [
-      {
-        name: "Andrew",
-        age: 24,
-        job: "dev",
-      },
-      {
-        name: "Bndrew",
-        age: 24,
-        job: "dev",
-      },
-      {
-        name: "Cndrew",
-        age: 24,
-        job: "dev",
-      },
-    ],
-    alongTrail: "Cedar Pass",
-  },
-  {
-    routeName: "Sky Crack",
-    difficulty: VScale.V4,
-    fontDifficulty: "",
-    completedBy: [
-      {
-        name: "Cndrew",
-        age: 24,
-        job: "dev",
-      },
-    ],
-    alongTrail: "Granite Steps",
-  },
-  {
-    routeName: "Summit Overhang",
-    difficulty: VScale.V5,
-    fontDifficulty: "",
-    completedBy: [
-      {
-        name: "Andrew",
-        age: 24,
-        job: "dev",
-      },
-      {
-        name: "Cndrew",
-        age: 24,
-        job: "dev",
-      },
-    ],
-    alongTrail: "Falcon Summit",
-  },
-];
+const validatePersonType = (object: any): boolean => {
+  if (
+    object.hasOwnProperty("id") &&
+    object.hasOwnProperty("name") &&
+    object.hasOwnProperty("age") &&
+    object.hasOwnProperty("job") &&
+    typeof object.id === "string" &&
+    typeof object.name === "string" &&
+    typeof object.age === "number" &&
+    typeof object.job === "string"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const validatePersonArrayType = (array: any[]): boolean => {
+  if (array.map((entry) => validatePersonType(entry)).includes(false)) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+export const getPerson = async (name: string): Promise<Person> => {
+  const responce = await fetch(
+    `http://localhost:4000/people/${name.toLowerCase()}`,
+  );
+  if (!responce.ok) {
+    throw new Error(`status:  ${responce.status}`);
+  }
+
+  const person = await responce.json();
+  console.log(person);
+  if (validatePersonType(person)) {
+    return person;
+  } else {
+    return {
+      id: "0000",
+      name: name,
+      job: "",
+      age: 0,
+    };
+  }
+};
+
+type personArrayArgs = {
+  id: string;
+  name: string;
+};
+
+export const getPersonArray = async (
+  peopleList: personArrayArgs[],
+): Promise<Person[]> => {
+  const idList = peopleList.map((person) => person.id);
+  const responce = await fetch("http://localhost:4000/peopleArray", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(idList),
+  });
+
+  if (!responce.ok) {
+    throw new Error(`status: ${responce.status}`);
+  }
+
+  const people = await responce.json();
+  console.log(people);
+  if (validatePersonArrayType(people)) {
+    return people.map((person: Person) => person.name.charAt(0).toUpperCase());
+  } else {
+    return peopleList.map((person) => ({
+      id: person.id,
+      name: person.name,
+      job: "",
+      age: 0,
+    }));
+  }
+};

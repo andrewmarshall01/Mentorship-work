@@ -1,52 +1,5 @@
 import { DificultyRanking, HikingTrail } from "../../lib/types/generated";
-
-const trails: HikingTrail[] = [
-  {
-    trailName: "Birch Loop",
-    distance: 3.2,
-    elevation: 0.2,
-    difficulty: DificultyRanking.Beginner,
-    parking: true,
-    rating: 1,
-    allClimbsonTrailDiff: [],
-  },
-  {
-    trailName: "Raven Ridge",
-    distance: 5.8,
-    elevation: 0.45,
-    difficulty: DificultyRanking.Intermediate,
-    parking: true,
-    rating: 2,
-    allClimbsonTrailDiff: [],
-  },
-  {
-    trailName: "Cedar Pass",
-    distance: 8.1,
-    elevation: 0.9,
-    difficulty: DificultyRanking.Intermediate,
-    parking: false,
-    rating: 3,
-    allClimbsonTrailDiff: [],
-  },
-  {
-    trailName: "Granite Steps",
-    distance: 10.4,
-    elevation: 1.3,
-    difficulty: DificultyRanking.Hard,
-    parking: true,
-    rating: 4,
-    allClimbsonTrailDiff: [],
-  },
-  {
-    trailName: "Falcon Summit",
-    distance: 14.6,
-    elevation: 1.9,
-    difficulty: DificultyRanking.Expert,
-    parking: false,
-    rating: 5,
-    allClimbsonTrailDiff: [],
-  },
-];
+import { trails } from "./stubbedData/hikingStubbs";
 
 export const getHikingTrailsByRating = (
   targetRating: number,

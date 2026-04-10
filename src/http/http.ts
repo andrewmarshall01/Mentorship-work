@@ -1,5 +1,4 @@
 import express from "express";
-import { resolve } from "node:dns";
 import cors from "cors";
 import { expressMiddleware } from "@as-integrations/express5";
 import { ApolloServer, BaseContext } from "@apollo/server";
