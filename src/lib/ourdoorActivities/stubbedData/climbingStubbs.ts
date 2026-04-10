@@ -72,6 +72,12 @@ export const climbs: ClimbingRoute[] = [
         age: 24,
         job: "dev",
       },
+      {
+        id: "0003",
+        name: "Emma",
+        age: 0,
+        job: "",
+      },
     ],
     alongTrail: "Granite Steps",
   },

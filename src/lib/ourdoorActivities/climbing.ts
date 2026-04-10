@@ -70,7 +70,7 @@ export const getPerson = async (name: string): Promise<Person> => {
   }
 
   const person = await responce.json();
-  console.log(person);
+
   if (validatePersonType(person)) {
     return person;
   } else {
@@ -105,13 +105,20 @@ export const getPersonArray = async (
   }
 
   const people = await responce.json();
-  console.log(people);
+
   if (validatePersonArrayType(people)) {
-    return people.map((person: Person) => person.name.charAt(0).toUpperCase());
+    return people.map((person: Person) => ({
+      ...person,
+      name:
+        person.name.charAt(0).toUpperCase() +
+        person.name.slice(1).toLowerCase(),
+    }));
   } else {
     return peopleList.map((person) => ({
       id: person.id,
-      name: person.name,
+      name:
+        person.name.charAt(0).toUpperCase() +
+        person.name.slice(1).toLowerCase(),
       job: "",
       age: 0,
     }));
