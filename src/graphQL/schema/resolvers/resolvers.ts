@@ -7,6 +7,7 @@ import {
 import {
   getClimbsOnHikingTrail,
   getPeopleWhoCompletedClimb,
+  // getPerson,
   getPersonArray,
 } from "../../../lib/ourdoorActivities/climbing";
 
@@ -91,5 +92,16 @@ export const resolvers: Resolvers = {
         return person;
       });
     },
+
+    // use in case of 1 person to fetch
+    // completedBy: async (parent) => {
+    //   const updatedPeople = parent.completedBy.map(async (person) => {
+    //     if (person.age === 0 || !person.job || person.job === "") {
+    //       person = await getPerson(person.name);
+    //     }
+    //   });
+
+    //   return parent.completedBy;
+    // },
   },
 };

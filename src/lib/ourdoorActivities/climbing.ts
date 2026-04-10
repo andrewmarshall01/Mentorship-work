@@ -107,7 +107,7 @@ export const getPersonArray = async (
   const people = await responce.json();
   console.log(people);
   if (validatePersonArrayType(people)) {
-    return people;
+    return people.map((person: Person) => person.name.charAt(0).toUpperCase());
   } else {
     return peopleList.map((person) => ({
       id: person.id,
