@@ -101,4 +101,18 @@ export const climbs: ClimbingRoute[] = [
     ],
     alongTrail: "Falcon Summit",
   },
+  {
+    routeName: "Boulder Dream",
+    difficulty: VScale.V3,
+    fontDifficulty: "6A",
+    completedBy: [
+      {
+        id: "",
+        name: "",
+        age: 0,
+        job: "",
+      },
+    ],
+    alongTrail: "",
+  },
 ];

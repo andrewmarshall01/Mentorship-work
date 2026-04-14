@@ -46,4 +46,13 @@ export const trails: HikingTrail[] = [
     rating: 5,
     allClimbsonTrailDiff: [],
   },
+  {
+    trailName: "Willow Creek",
+    distance: 6.5,
+    elevation: 0.6,
+    difficulty: DificultyRanking.Intermediate,
+    parking: true,
+    rating: 3,
+    allClimbsonTrailDiff: [],
+  },
 ];

@@ -91,6 +91,8 @@ export const resolvers: Resolvers = {
         return person;
       });
     },
+    // considering calling this instead wrote for robustness - failed call to post endpoint leads to no data, this is prefereable for caching and
+    // retrieving data in case of some failures
 
     // completedBy: async (parent) => {
     //   const updatedPeople = await Promise.all(
