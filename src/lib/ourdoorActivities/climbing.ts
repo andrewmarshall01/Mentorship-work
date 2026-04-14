@@ -5,6 +5,7 @@ import {
   Person,
 } from "../types/generated";
 import { climbs } from "./stubbedData/climbingStubbs";
+import { validatePersonArrayType, validatePersonType } from "./validateTypes";
 
 export const getHikingTrailForClimb = (trailName: string): HikingTrail => ({
   trailName: trailName,
@@ -34,31 +35,6 @@ export const getPeopleWhoCompletedClimb = (
 ): Person[] | undefined => {
   const thisClimb = climbs.find((climb) => climb.routeName === routeName);
   return thisClimb?.completedBy;
-};
-
-const validatePersonType = (object: any): boolean => {
-  if (
-    object.hasOwnProperty("id") &&
-    object.hasOwnProperty("name") &&
-    object.hasOwnProperty("age") &&
-    object.hasOwnProperty("job") &&
-    typeof object.id === "string" &&
-    typeof object.name === "string" &&
-    typeof object.age === "number" &&
-    typeof object.job === "string"
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const validatePersonArrayType = (array: any[]): boolean => {
-  if (array.map((entry) => validatePersonType(entry)).includes(false)) {
-    return false;
-  } else {
-    return true;
-  }
 };
 
 export const getPerson = async (name: string): Promise<Person> => {
