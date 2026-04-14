@@ -81,7 +81,6 @@ export const resolvers: Resolvers = {
       if (peopleNeedingData.length === 0) {
         return parent.completedBy;
       }
-
       const fetchedPeople = await getPersonArray(peopleNeedingData);
 
       return parent.completedBy.map((person) => {
@@ -92,16 +91,19 @@ export const resolvers: Resolvers = {
         return person;
       });
     },
+    // considering calling this instead wrote for robustness - failed call to post endpoint leads to no data, this is prefereable for caching and
+    // retrieving data in case of some failures
 
-    // use in case of 1 person to fetch
     // completedBy: async (parent) => {
-    //   const updatedPeople = parent.completedBy.map(async (person) => {
-    //     if (person.age === 0 || !person.job || person.job === "") {
-    //       person = await getPerson(person.name);
-    //     }
-    //   });
-
-    //   return parent.completedBy;
+    //   const updatedPeople = await Promise.all(
+    //     parent.completedBy.map(async (person) => {
+    //       if (person.age === 0 || !person.job || person.job === "") {
+    //         return await getPerson(person.name);
+    //       }
+    //       return person;
+    //     }),
+    //   );
+    //   return updatedPeople;
     // },
   },
 };
