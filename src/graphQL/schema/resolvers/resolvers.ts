@@ -7,9 +7,12 @@ import {
 import {
   getClimbsOnHikingTrail,
   getPeopleWhoCompletedClimb,
-  // getPerson,
   getPersonArray,
 } from "../../../lib/ourdoorActivities/climbing";
+import {
+  getPersonByIdLib,
+  getPersonWithFavById,
+} from "../../../lib/person/personDetails";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -23,6 +26,7 @@ export const resolvers: Resolvers = {
       getClimbsOnHikingTrail(args.trailName),
     getPeopleByClimb: (_: unknown, args) =>
       getPeopleWhoCompletedClimb(args.routeName),
+    getPersonById: (_: unknown, args) => getPersonByIdLib(args.id),
   },
   HikingTrail: {
     allClimbsonTrailDiff: (parent) => {
@@ -91,19 +95,60 @@ export const resolvers: Resolvers = {
         return person;
       });
     },
-    // considering calling this instead wrote for robustness - failed call to post endpoint leads to no data, this is prefereable for caching and
-    // retrieving data in case of some failures
+  },
 
-    // completedBy: async (parent) => {
-    //   const updatedPeople = await Promise.all(
-    //     parent.completedBy.map(async (person) => {
-    //       if (person.age === 0 || !person.job || person.job === "") {
-    //         return await getPerson(person.name);
-    //       }
-    //       return person;
-    //     }),
-    //   );
-    //   return updatedPeople;
-    // },
+  Person: {
+    favouriteRoute: async (parent) => {
+      if (parent.favouriteRoute && parent.favouriteRoute !== "") {
+        return parent.favouriteRoute;
+      }
+      try {
+        const fetchedPersonDetails = await getPersonWithFavById(parent.id);
+        if (fetchedPersonDetails && fetchedPersonDetails.favouriteClimb) {
+          return fetchedPersonDetails.favouriteClimb;
+        } else {
+          return parent.favouriteRoute;
+        }
+      } catch (error) {
+        console.error("failed to retrieve perosn");
+      }
+    },
+    job: async (parent) => {
+      if (parent.job && parent.job !== "") {
+        return parent.job;
+      }
+
+      try {
+        const fetchedPeople = await getPersonArray([
+          { id: parent.id, name: parent.name },
+        ]);
+        if (fetchedPeople && fetchedPeople.length > 0) {
+          return fetchedPeople[0].job;
+        }
+      } catch (error) {
+        console.error("Failed to fetch job for person", parent.id);
+      }
+
+      return parent.job;
+    },
+
+    age: async (parent) => {
+      if (parent.age && parent.age !== 0) {
+        return parent.age;
+      }
+
+      try {
+        const fetchedPeople = await getPersonArray([
+          { id: parent.id, name: parent.name },
+        ]);
+        if (fetchedPeople && fetchedPeople.length > 0) {
+          return fetchedPeople[0].age;
+        }
+      } catch (error) {
+        console.error("Failed to fetch age for person", parent.id);
+      }
+
+      return parent.age || 0;
+    },
   },
 };

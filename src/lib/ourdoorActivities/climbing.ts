@@ -68,7 +68,7 @@ export const getPersonArray = async (
   peopleList: personArrayArgs[],
 ): Promise<Person[]> => {
   const idList = peopleList.map((person) => person.id);
-  const responce = await fetch("http://localhost:5000/peopleArray", {
+  const responce = await fetch("http://localhost:4000/peopleArray", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
