@@ -44,6 +44,17 @@ export type HikingTrail = {
   trailName: Scalars['String']['output'];
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  updateFavClimb?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type MutationUpdateFavClimbArgs = {
+  favouriteRouteName: Scalars['String']['input'];
+  id: Scalars['String']['input'];
+};
+
 export type Person = {
   __typename?: 'Person';
   age: Scalars['Int']['output'];
@@ -191,6 +202,7 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   HikingTrail: ResolverTypeWrapper<HikingTrail>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Person: ResolverTypeWrapper<Person>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -204,6 +216,7 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   HikingTrail: HikingTrail;
   Int: Scalars['Int']['output'];
+  Mutation: Record<PropertyKey, never>;
   Person: Person;
   Query: Record<PropertyKey, never>;
   String: Scalars['String']['output'];
@@ -228,6 +241,10 @@ export type HikingTrailResolvers<ContextType = any, ParentType extends Resolvers
   trailName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  updateFavClimb?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationUpdateFavClimbArgs, 'favouriteRouteName' | 'id'>>;
+};
+
 export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {
   age?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   favouriteRoute?: Resolver<Maybe<ResolversTypes['ClimbingRoute']>, ParentType, ContextType>;
@@ -249,6 +266,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type Resolvers<ContextType = any> = {
   ClimbingRoute?: ClimbingRouteResolvers<ContextType>;
   HikingTrail?: HikingTrailResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Person?: PersonResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };

@@ -12,6 +12,7 @@ import {
   getPersonByIdLib,
   getPersonWithFavById,
   getPersonWithJobAndAgeArray,
+  updateFavClimbById,
 } from "../../../lib/personLogic/personDetails";
 import { Resolvers, VScale } from "../../../lib/types/generated";
 
@@ -30,6 +31,10 @@ export const resolvers: Resolvers = {
     getPersonById: (_: unknown, args) => getPersonByIdLib(args.id),
     getClimbingRouteByName: (_: unknown, args) =>
       getClimbingRouteByNameLib(args.routeName),
+  },
+  Mutation: {
+    updateFavClimb: (_: unknown, args) =>
+      updateFavClimbById(args.id, args.favouriteRouteName),
   },
   HikingTrail: {
     allClimbsonTrailDiff: (parent) => {

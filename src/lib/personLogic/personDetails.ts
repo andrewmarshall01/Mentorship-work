@@ -97,3 +97,28 @@ export const getPersonWithJobAndAgeArray = async (
     }));
   }
 };
+
+export const updateFavClimbById = async (
+  id: string,
+  favouriteRoute: string,
+): Promise<string | undefined> => {
+  const responce = await fetch("http://localhost:5000/updateFav", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, favouriteRoute }),
+  });
+
+  if (!responce.ok) {
+    throw new Error(`status: ${responce.status}`);
+  }
+
+  const updatedPerson = await responce.json();
+
+  if (validatePersonWithFavType(updatedPerson)) {
+    return updatedPerson.favouriteClimb;
+  } else {
+    throw new Error(`invalid responce from pythonPeopleRest`);
+  }
+};
