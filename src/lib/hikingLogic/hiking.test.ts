@@ -1,11 +1,10 @@
 import { describe, expect, test } from "vitest";
-import { trails } from "../stubbedData/hikingStubbs";
 import {
   getHikingTrailsByDifficulty,
   getHikingTrailsByName,
   getHikingTrailsByRating,
-} from "../hiking";
-import { DificultyRanking } from "../../types/generated";
+} from "./hiking";
+import { DificultyRanking } from "../types/generated";
 
 describe("getHikingTrailsByRating", () => {
   test("should throw error for rating above 5", () => {

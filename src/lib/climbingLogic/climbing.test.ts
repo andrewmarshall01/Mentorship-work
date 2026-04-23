@@ -1,10 +1,6 @@
-import {
-  getClimbsOnHikingTrail,
-  getPeopleWhoCompletedClimb,
-} from "../climbing";
+import { getClimbsOnHikingTrail, getPeopleWhoCompletedClimb } from "./climbing";
 import { describe, expect, test } from "vitest";
-import { trails } from "../stubbedData/hikingStubbs";
-import { climbs } from "../stubbedData/climbingStubbs";
+import { climbs } from "./climbingStubbs";
 
 describe("getClimbsOnHikingTrail", () => {
   test("returns undefined if no climbs are on trail", () => {
@@ -44,12 +40,12 @@ describe("getPeopleWhoCompletedClimb", () => {
   test("returns empty array of people if none completed", () => {
     const people = getPeopleWhoCompletedClimb("Boulder Dream");
     expect(people);
-    expect(people && people.length).toBe(1); //ignore error people is already verified to exist
+    expect(people && people.length).toBe(1);
     expect(people && people[0].name).toBe("");
   });
 
   test("returns correct people for a given climb", () => {
-    const people = getPeopleWhoCompletedClimb("Moss Traverse"); // has 3 people
+    const people = getPeopleWhoCompletedClimb("Moss Traverse");
     expect(people);
     expect(people && people.length).toBe(3);
     people?.map((person, i) =>

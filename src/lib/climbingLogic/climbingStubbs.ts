@@ -1,4 +1,4 @@
-import { ClimbingRoute, VScale } from "../../types/generated";
+import { ClimbingRoute, VScale } from "../types/generated";
 
 export const climbs: ClimbingRoute[] = [
   {

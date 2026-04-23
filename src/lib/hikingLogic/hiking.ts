@@ -1,5 +1,5 @@
-import { DificultyRanking, HikingTrail } from "../../lib/types/generated";
-import { trails } from "./stubbedData/hikingStubbs";
+import { DificultyRanking, HikingTrail } from "../types/generated";
+import { trails } from "./hikingStubbs";
 
 export const getHikingTrailsByRating = (
   targetRating: number,

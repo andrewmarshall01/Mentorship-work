@@ -1,15 +1,19 @@
-import { Resolvers, VScale } from "../../../lib/types/generated";
+import {
+  getClimbingRouteByNameLib,
+  getClimbsOnHikingTrail,
+  getPeopleWhoCompletedClimb,
+} from "../../../lib/climbingLogic/climbing";
 import {
   getHikingTrailsByDifficulty,
   getHikingTrailsByName,
   getHikingTrailsByRating,
-} from "../../../lib/ourdoorActivities/hiking";
+} from "../../../lib/hikingLogic/hiking";
 import {
-  getClimbsOnHikingTrail,
-  getPeopleWhoCompletedClimb,
-  // getPerson,
-  getPersonArray,
-} from "../../../lib/ourdoorActivities/climbing";
+  getPersonByIdLib,
+  getPersonWithFavById,
+  getPersonWithJobAndAgeArray,
+} from "../../../lib/personLogic/personDetails";
+import { Resolvers, VScale } from "../../../lib/types/generated";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -23,6 +27,9 @@ export const resolvers: Resolvers = {
       getClimbsOnHikingTrail(args.trailName),
     getPeopleByClimb: (_: unknown, args) =>
       getPeopleWhoCompletedClimb(args.routeName),
+    getPersonById: (_: unknown, args) => getPersonByIdLib(args.id),
+    getClimbingRouteByName: (_: unknown, args) =>
+      getClimbingRouteByNameLib(args.routeName),
   },
   HikingTrail: {
     allClimbsonTrailDiff: (parent) => {
@@ -81,7 +88,8 @@ export const resolvers: Resolvers = {
       if (peopleNeedingData.length === 0) {
         return parent.completedBy;
       }
-      const fetchedPeople = await getPersonArray(peopleNeedingData);
+      const fetchedPeople =
+        await getPersonWithJobAndAgeArray(peopleNeedingData);
 
       return parent.completedBy.map((person) => {
         if (person.age === 0 || !person.job || person.job === "") {
@@ -91,19 +99,66 @@ export const resolvers: Resolvers = {
         return person;
       });
     },
-    // considering calling this instead wrote for robustness - failed call to post endpoint leads to no data, this is prefereable for caching and
-    // retrieving data in case of some failures
+  },
 
-    // completedBy: async (parent) => {
-    //   const updatedPeople = await Promise.all(
-    //     parent.completedBy.map(async (person) => {
-    //       if (person.age === 0 || !person.job || person.job === "") {
-    //         return await getPerson(person.name);
-    //       }
-    //       return person;
-    //     }),
-    //   );
-    //   return updatedPeople;
-    // },
+  Person: {
+    favouriteRoute: async (parent) => {
+      if (
+        parent.favouriteRoute?.routeName &&
+        parent.favouriteRoute.routeName !== ""
+      ) {
+        return parent.favouriteRoute;
+      }
+      try {
+        const fetchedPersonDetails = await getPersonWithFavById(parent.id);
+        if (fetchedPersonDetails && fetchedPersonDetails.favouriteClimb) {
+          const fullRoute = getClimbingRouteByNameLib(
+            fetchedPersonDetails.favouriteClimb,
+          );
+          return fullRoute;
+        } else {
+          return parent.favouriteRoute;
+        }
+      } catch (error) {
+        console.error("failed to retrieve perosn");
+      }
+    },
+    job: async (parent) => {
+      if (parent.job && parent.job !== "") {
+        return parent.job;
+      }
+
+      try {
+        const fetchedPeople = await getPersonWithJobAndAgeArray([
+          { id: parent.id, name: parent.name },
+        ]);
+        if (fetchedPeople && fetchedPeople.length > 0) {
+          return fetchedPeople[0].job;
+        }
+      } catch (error) {
+        console.error("Failed to fetch job for person", parent.id);
+      }
+
+      return parent.job;
+    },
+
+    age: async (parent) => {
+      if (parent.age && parent.age !== 0) {
+        return parent.age;
+      }
+
+      try {
+        const fetchedPeople = await getPersonWithJobAndAgeArray([
+          { id: parent.id, name: parent.name },
+        ]);
+        if (fetchedPeople && fetchedPeople.length > 0) {
+          return fetchedPeople[0].age;
+        }
+      } catch (error) {
+        console.error("Failed to fetch age for person", parent.id);
+      }
+
+      return parent.age || 0;
+    },
   },
 };

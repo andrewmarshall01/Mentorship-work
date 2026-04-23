@@ -47,6 +47,7 @@ export type HikingTrail = {
 export type Person = {
   __typename?: 'Person';
   age: Scalars['Int']['output'];
+  favouriteRoute?: Maybe<ClimbingRoute>;
   id: Scalars['String']['output'];
   job?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
@@ -54,11 +55,18 @@ export type Person = {
 
 export type Query = {
   __typename?: 'Query';
+  getClimbingRouteByName?: Maybe<ClimbingRoute>;
   getClimbsByHikingTrail?: Maybe<Array<Maybe<ClimbingRoute>>>;
   getHikingTrailByDifficulty?: Maybe<Array<HikingTrail>>;
   getHikingTrailByName?: Maybe<HikingTrail>;
   getHikingTrailsByRating?: Maybe<Array<HikingTrail>>;
   getPeopleByClimb?: Maybe<Array<Maybe<Person>>>;
+  getPersonById?: Maybe<Person>;
+};
+
+
+export type QueryGetClimbingRouteByNameArgs = {
+  routeName: Scalars['String']['input'];
 };
 
 
@@ -84,6 +92,11 @@ export type QueryGetHikingTrailsByRatingArgs = {
 
 export type QueryGetPeopleByClimbArgs = {
   routeName: Scalars['String']['input'];
+};
+
+
+export type QueryGetPersonByIdArgs = {
+  id: Scalars['String']['input'];
 };
 
 export enum VScale {
@@ -217,17 +230,20 @@ export type HikingTrailResolvers<ContextType = any, ParentType extends Resolvers
 
 export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {
   age?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  favouriteRoute?: Resolver<Maybe<ResolversTypes['ClimbingRoute']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   job?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getClimbingRouteByName?: Resolver<Maybe<ResolversTypes['ClimbingRoute']>, ParentType, ContextType, RequireFields<QueryGetClimbingRouteByNameArgs, 'routeName'>>;
   getClimbsByHikingTrail?: Resolver<Maybe<Array<Maybe<ResolversTypes['ClimbingRoute']>>>, ParentType, ContextType, RequireFields<QueryGetClimbsByHikingTrailArgs, 'trailName'>>;
   getHikingTrailByDifficulty?: Resolver<Maybe<Array<ResolversTypes['HikingTrail']>>, ParentType, ContextType, RequireFields<QueryGetHikingTrailByDifficultyArgs, 'difficulty'>>;
   getHikingTrailByName?: Resolver<Maybe<ResolversTypes['HikingTrail']>, ParentType, ContextType, RequireFields<QueryGetHikingTrailByNameArgs, 'trailName'>>;
   getHikingTrailsByRating?: Resolver<Maybe<Array<ResolversTypes['HikingTrail']>>, ParentType, ContextType, RequireFields<QueryGetHikingTrailsByRatingArgs, 'rating'>>;
   getPeopleByClimb?: Resolver<Maybe<Array<Maybe<ResolversTypes['Person']>>>, ParentType, ContextType, RequireFields<QueryGetPeopleByClimbArgs, 'routeName'>>;
+  getPersonById?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryGetPersonByIdArgs, 'id'>>;
 };
 
 export type Resolvers<ContextType = any> = {

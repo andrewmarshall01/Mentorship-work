@@ -4,6 +4,8 @@ type Query {
   getClimbsByHikingTrail(trailName: String!): [ClimbingRoute]
   getHikingTrailByName(trailName: String!): HikingTrail
   getPeopleByClimb(routeName: String!): [Person]
+  getPersonById(id: String!): Person
+  getClimbingRouteByName(routeName: String!): ClimbingRoute
 }
 
 type Person {
@@ -11,6 +13,7 @@ type Person {
   name: String!
   age: Int!
   job: String
+  favouriteRoute: ClimbingRoute
 }
 
 enum DificultyRanking {
