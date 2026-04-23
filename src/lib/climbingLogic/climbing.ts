@@ -4,10 +4,6 @@ import {
   HikingTrail,
   Person,
 } from "../types/generated";
-import {
-  validatePersonArrayType,
-  validatePersonType,
-} from "../typeValidationLogic/validateTypes";
 import { climbs } from "./climbingStubbs";
 
 export const getClimbingRouteByNameLib = (
