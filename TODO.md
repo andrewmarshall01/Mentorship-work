@@ -46,3 +46,44 @@ for (let i = 0; i < targetIds.length; i++) {
   targetPeople.push(namesJson[index]);
 }```
 ````
+
+## main.py
+
+```## NOT ACTUALLY NEEDED FOR THIS PROJ
+# app.config.from_mapping(
+#     SECRET_KEY='dev',
+#     DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite')
+# )
+
+# app.config.from_pyfile('config.py', silent=True)
+
+# os.makedirs(app.instance_path, exist_ok=True)
+```
+
+```
+# @app.route('/peopleArray', methods=['POST'])
+# def people():
+#     peopleArr = request.json
+#     res = getPeopleByIdArray(peopleArr)
+#     if res:
+#         return jsonify(res)
+#     else:
+#         return jsonify({'error': 'No matching people found'}), 404
+```
+
+## people functions
+
+```
+# def getPeopleByIdArray(idList: list[str]) -> list[Person]:
+
+#     current_dir = os.path.dirname(os.path.abspath(__file__))
+#     people_path = os.path.join(os.path.dirname(current_dir), 'people.json')
+
+#     with open(people_path) as peopleFile:
+#         people = json.load(peopleFile)
+#     peopleToReturn = []
+#     for person in people:
+#         if person['id'] in idList:
+#             peopleToReturn.append(person)
+#     return peopleToReturn
+```

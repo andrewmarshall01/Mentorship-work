@@ -1,18 +1,19 @@
-import { Resolvers, VScale } from "../../../lib/types/generated";
+import {
+  getClimbingRouteByNameLib,
+  getClimbsOnHikingTrail,
+  getPeopleWhoCompletedClimb,
+} from "../../../lib/climbingLogic/climbing";
 import {
   getHikingTrailsByDifficulty,
   getHikingTrailsByName,
   getHikingTrailsByRating,
-} from "../../../lib/ourdoorActivities/hiking";
-import {
-  getClimbsOnHikingTrail,
-  getPeopleWhoCompletedClimb,
-  getPersonArray,
-} from "../../../lib/ourdoorActivities/climbing";
+} from "../../../lib/hikingLogic/hiking";
 import {
   getPersonByIdLib,
   getPersonWithFavById,
-} from "../../../lib/person/personDetails";
+  getPersonWithJobAndAgeArray,
+} from "../../../lib/personLogic/personDetails";
+import { Resolvers, VScale } from "../../../lib/types/generated";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -27,6 +28,8 @@ export const resolvers: Resolvers = {
     getPeopleByClimb: (_: unknown, args) =>
       getPeopleWhoCompletedClimb(args.routeName),
     getPersonById: (_: unknown, args) => getPersonByIdLib(args.id),
+    getClimbingRouteByName: (_: unknown, args) =>
+      getClimbingRouteByNameLib(args.routeName),
   },
   HikingTrail: {
     allClimbsonTrailDiff: (parent) => {
@@ -85,7 +88,8 @@ export const resolvers: Resolvers = {
       if (peopleNeedingData.length === 0) {
         return parent.completedBy;
       }
-      const fetchedPeople = await getPersonArray(peopleNeedingData);
+      const fetchedPeople =
+        await getPersonWithJobAndAgeArray(peopleNeedingData);
 
       return parent.completedBy.map((person) => {
         if (person.age === 0 || !person.job || person.job === "") {
@@ -99,13 +103,19 @@ export const resolvers: Resolvers = {
 
   Person: {
     favouriteRoute: async (parent) => {
-      if (parent.favouriteRoute && parent.favouriteRoute !== "") {
+      if (
+        parent.favouriteRoute?.routeName &&
+        parent.favouriteRoute.routeName !== ""
+      ) {
         return parent.favouriteRoute;
       }
       try {
         const fetchedPersonDetails = await getPersonWithFavById(parent.id);
         if (fetchedPersonDetails && fetchedPersonDetails.favouriteClimb) {
-          return fetchedPersonDetails.favouriteClimb;
+          const fullRoute = getClimbingRouteByNameLib(
+            fetchedPersonDetails.favouriteClimb,
+          );
+          return fullRoute;
         } else {
           return parent.favouriteRoute;
         }
@@ -119,7 +129,7 @@ export const resolvers: Resolvers = {
       }
 
       try {
-        const fetchedPeople = await getPersonArray([
+        const fetchedPeople = await getPersonWithJobAndAgeArray([
           { id: parent.id, name: parent.name },
         ]);
         if (fetchedPeople && fetchedPeople.length > 0) {
@@ -138,7 +148,7 @@ export const resolvers: Resolvers = {
       }
 
       try {
-        const fetchedPeople = await getPersonArray([
+        const fetchedPeople = await getPersonWithJobAndAgeArray([
           { id: parent.id, name: parent.name },
         ]);
         if (fetchedPeople && fetchedPeople.length > 0) {

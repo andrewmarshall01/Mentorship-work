@@ -1,10 +1,6 @@
-import {
-  getClimbsOnHikingTrail,
-  getPeopleWhoCompletedClimb,
-} from "../climbing";
+import { getClimbsOnHikingTrail, getPeopleWhoCompletedClimb } from "./climbing";
 import { describe, expect, test } from "vitest";
-import { trails } from "../stubbedData/hikingStubbs";
-import { climbs } from "../stubbedData/climbingStubbs";
+import { climbs } from "./climbingStubbs";
 
 describe("getClimbsOnHikingTrail", () => {
   test("returns undefined if no climbs are on trail", () => {

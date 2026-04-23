@@ -1,4 +1,4 @@
-import { DificultyRanking, HikingTrail } from "../../types/generated";
+import { DificultyRanking, HikingTrail } from "../types/generated";
 
 export const trails: HikingTrail[] = [
   {

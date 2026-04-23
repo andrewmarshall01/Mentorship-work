@@ -1,43 +1,40 @@
+import { Person } from "../types/generated";
 import {
-  ClimbingRoute,
-  DificultyRanking,
-  HikingTrail,
-  Person,
-} from "../types/generated";
-import { climbs } from "./stubbedData/climbingStubbs";
-import { validatePersonArrayType, validatePersonType } from "./validateTypes";
+  validatePersonArrayType,
+  validatePersonType,
+  validatePersonWithFavType,
+} from "../typeValidationLogic/validateTypes";
+import { PeopleArray } from "./peopleStubbs";
 
-export const getHikingTrailForClimb = (trailName: string): HikingTrail => ({
-  trailName: trailName,
-  distance: 10.2,
-  elevation: 1.1,
-  difficulty: DificultyRanking.Hard,
-  parking: true,
-  rating: 5,
-  allClimbsonTrailDiff: [],
-});
+export type personWithFav = {
+  name: string;
+  favouriteClimb: string;
+  id: string;
+};
 
-export const getClimbsOnHikingTrail = (
-  trailName: string,
-): ClimbingRoute[] | undefined => {
-  const allClimbsOnTrail = climbs.filter(
-    (climb) => climb.alongTrail === trailName,
-  );
-  if (allClimbsOnTrail && allClimbsOnTrail.length > 0) {
-    return allClimbsOnTrail;
+export const getPersonByIdLib = (targetId: string): Person | undefined => {
+  const targetPerson = PeopleArray.find((people) => people.id === targetId);
+  return targetPerson;
+};
+
+export const getPersonWithFavById = async (
+  id: string,
+): Promise<personWithFav | undefined> => {
+  const responce = await fetch(`http://localhost:5000/id/${id}`);
+  if (!responce.ok) {
+    throw new Error(`status:  ${responce.status}`);
+  }
+
+  const personWithFavDetails = await responce.json();
+
+  if (validatePersonWithFavType(personWithFavDetails)) {
+    return personWithFavDetails;
   } else {
     return undefined;
   }
 };
 
-export const getPeopleWhoCompletedClimb = (
-  routeName: string,
-): Person[] | undefined => {
-  const thisClimb = climbs.find((climb) => climb.routeName === routeName);
-  return thisClimb?.completedBy;
-};
-
-export const getPerson = async (name: string): Promise<Person> => {
+export const getPersonWithJobAndAge = async (name: string): Promise<Person> => {
   const responce = await fetch(
     `http://localhost:4000/people/${name.toLowerCase()}`,
   );
@@ -64,7 +61,7 @@ type personArrayArgs = {
   name: string;
 };
 
-export const getPersonArray = async (
+export const getPersonWithJobAndAgeArray = async (
   peopleList: personArrayArgs[],
 ): Promise<Person[]> => {
   const idList = peopleList.map((person) => person.id);
