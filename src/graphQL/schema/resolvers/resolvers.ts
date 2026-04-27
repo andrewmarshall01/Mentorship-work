@@ -7,6 +7,7 @@ import {
   getHikingTrailsByDifficulty,
   getHikingTrailsByName,
   getHikingTrailsByRating,
+  updateTrailRating,
 } from "../../../lib/hikingLogic/hiking";
 import {
   getPersonByIdLib,
@@ -35,6 +36,8 @@ export const resolvers: Resolvers = {
   Mutation: {
     updateFavClimb: (_: unknown, args) =>
       updateFavClimbById(args.id, args.favouriteRouteName),
+    addNewTrailRating: (_: unknown, args) =>
+      updateTrailRating(args.trailName, args.rating),
   },
   HikingTrail: {
     allClimbsonTrailDiff: (parent) => {

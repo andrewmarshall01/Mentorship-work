@@ -41,12 +41,20 @@ export type HikingTrail = {
   elevation: Scalars['Float']['output'];
   parking?: Maybe<Scalars['Boolean']['output']>;
   rating?: Maybe<Scalars['Int']['output']>;
+  ratingsCount?: Maybe<Scalars['Int']['output']>;
   trailName: Scalars['String']['output'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addNewTrailRating: Scalars['Int']['output'];
   updateFavClimb?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type MutationAddNewTrailRatingArgs = {
+  rating: Scalars['Int']['input'];
+  trailName: Scalars['String']['input'];
 };
 
 
@@ -238,10 +246,12 @@ export type HikingTrailResolvers<ContextType = any, ParentType extends Resolvers
   elevation?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   parking?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   rating?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  ratingsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   trailName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addNewTrailRating?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<MutationAddNewTrailRatingArgs, 'rating' | 'trailName'>>;
   updateFavClimb?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationUpdateFavClimbArgs, 'favouriteRouteName' | 'id'>>;
 };
 

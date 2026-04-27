@@ -8,6 +8,7 @@ export const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Beginner,
     parking: true,
     rating: 1,
+    ratingsCount: 47,
     allClimbsonTrailDiff: [],
   },
   {
@@ -17,6 +18,7 @@ export const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Intermediate,
     parking: true,
     rating: 2,
+    ratingsCount: 1,
     allClimbsonTrailDiff: [],
   },
   {
@@ -26,6 +28,7 @@ export const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Intermediate,
     parking: false,
     rating: 3,
+    ratingsCount: 85,
     allClimbsonTrailDiff: [],
   },
   {
@@ -35,6 +38,7 @@ export const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Hard,
     parking: true,
     rating: 4,
+    ratingsCount: 214,
     allClimbsonTrailDiff: [],
   },
   {
@@ -44,6 +48,7 @@ export const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Expert,
     parking: false,
     rating: 5,
+    ratingsCount: 63,
     allClimbsonTrailDiff: [],
   },
   {
@@ -53,6 +58,7 @@ export const trails: HikingTrail[] = [
     difficulty: DificultyRanking.Intermediate,
     parking: true,
     rating: 3,
+    ratingsCount: 178,
     allClimbsonTrailDiff: [],
   },
 ];
