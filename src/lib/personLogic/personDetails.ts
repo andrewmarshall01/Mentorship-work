@@ -114,7 +114,7 @@ export const updateFavClimbById = async (
     throw new Error(`status: ${responce.status}`);
   }
 
-  const updatedPerson = await responce.json();
+  const updatedPerson = await responce.json(); // this is the personwithfav type so .favouriteClimb is simply the favourite route name
 
   if (validatePersonWithFavType(updatedPerson)) {
     return updatedPerson.favouriteClimb;
