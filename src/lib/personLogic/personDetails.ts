@@ -1,3 +1,4 @@
+import { json } from "stream/consumers";
 import { Person } from "../types/generated";
 import {
   validatePersonArrayType,
@@ -5,6 +6,7 @@ import {
   validatePersonWithFavType,
 } from "../typeValidationLogic/validateTypes";
 import { PeopleArray } from "./peopleStubbs";
+import { error } from "console";
 
 export type personWithFav = {
   name: string;
@@ -120,5 +122,30 @@ export const updateFavClimbById = async (
     return updatedPerson.favouriteClimb;
   } else {
     throw new Error(`invalid responce from pythonPeopleRest`);
+  }
+};
+
+export const updateJobById = async (
+  id: string,
+  newJobTitle: string,
+): Promise<boolean> => {
+  const responce = await fetch("http://localhost:4000/updateJob", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, newJobTitle }),
+  });
+
+  if (!responce.ok) {
+    throw new Error(`status: ${responce.status}`);
+  }
+
+  const success = await responce.json();
+
+  if (typeof success === "boolean") {
+    return success;
+  } else {
+    throw new Error("invalid responce from peopleRest");
   }
 };

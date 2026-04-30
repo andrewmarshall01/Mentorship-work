@@ -40,20 +40,21 @@ export type HikingTrail = {
   distance: Scalars['Float']['output'];
   elevation: Scalars['Float']['output'];
   parking?: Maybe<Scalars['Boolean']['output']>;
-  rating?: Maybe<Scalars['Int']['output']>;
+  rating?: Maybe<Scalars['Float']['output']>;
   ratingsCount?: Maybe<Scalars['Int']['output']>;
   trailName: Scalars['String']['output'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addNewTrailRating: Scalars['Int']['output'];
+  addNewTrailRating: Scalars['Float']['output'];
   updateFavClimb?: Maybe<Scalars['String']['output']>;
+  updateJob?: Maybe<Scalars['Boolean']['output']>;
 };
 
 
 export type MutationAddNewTrailRatingArgs = {
-  rating: Scalars['Int']['input'];
+  rating: Scalars['Float']['input'];
   trailName: Scalars['String']['input'];
 };
 
@@ -61,6 +62,12 @@ export type MutationAddNewTrailRatingArgs = {
 export type MutationUpdateFavClimbArgs = {
   favouriteRouteName: Scalars['String']['input'];
   id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateJobArgs = {
+  id: Scalars['String']['input'];
+  newJobTitle: Scalars['String']['input'];
 };
 
 export type Person = {
@@ -245,14 +252,15 @@ export type HikingTrailResolvers<ContextType = any, ParentType extends Resolvers
   distance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   elevation?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   parking?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  rating?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  rating?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   ratingsCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   trailName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addNewTrailRating?: Resolver<ResolversTypes['Int'], ParentType, ContextType, RequireFields<MutationAddNewTrailRatingArgs, 'rating' | 'trailName'>>;
+  addNewTrailRating?: Resolver<ResolversTypes['Float'], ParentType, ContextType, RequireFields<MutationAddNewTrailRatingArgs, 'rating' | 'trailName'>>;
   updateFavClimb?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationUpdateFavClimbArgs, 'favouriteRouteName' | 'id'>>;
+  updateJob?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationUpdateJobArgs, 'id' | 'newJobTitle'>>;
 };
 
 export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {

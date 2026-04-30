@@ -1,3 +1,4 @@
+import { argsToArgsConfig } from "graphql/type/definition";
 import {
   getClimbingRouteByNameLib,
   getClimbsOnHikingTrail,
@@ -14,6 +15,7 @@ import {
   getPersonWithFavById,
   getPersonWithJobAndAgeArray,
   updateFavClimbById,
+  updateJobById,
 } from "../../../lib/personLogic/personDetails";
 import { Resolvers, VScale } from "../../../lib/types/generated";
 
@@ -38,6 +40,7 @@ export const resolvers: Resolvers = {
       updateFavClimbById(args.id, args.favouriteRouteName),
     addNewTrailRating: (_: unknown, args) =>
       updateTrailRating(args.trailName, args.rating),
+    updateJob: (_: unknown, args) => updateJobById(args.id, args.newJobTitle),
   },
   HikingTrail: {
     allClimbsonTrailDiff: (parent) => {

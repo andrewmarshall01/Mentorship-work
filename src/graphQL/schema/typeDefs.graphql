@@ -11,6 +11,7 @@ type Query {
 type Mutation {
   updateFavClimb(id: String!, favouriteRouteName: String!): String
   addNewTrailRating(trailName: String!, rating: Float!): Float!
+  updateJob(id: String!, newJobTitle: String!): Boolean
 }
 
 type Person {
