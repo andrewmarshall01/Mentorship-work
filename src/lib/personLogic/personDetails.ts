@@ -1,3 +1,4 @@
+import { json } from "stream/consumers";
 import { Person } from "../types/generated";
 import {
   validatePersonArrayType,
@@ -5,6 +6,7 @@ import {
   validatePersonWithFavType,
 } from "../typeValidationLogic/validateTypes";
 import { PeopleArray } from "./peopleStubbs";
+import { error } from "console";
 
 export type personWithFav = {
   name: string;
@@ -95,5 +97,55 @@ export const getPersonWithJobAndAgeArray = async (
       job: "",
       age: 0,
     }));
+  }
+};
+
+export const updateFavClimbById = async (
+  id: string,
+  favouriteRoute: string,
+): Promise<string | undefined> => {
+  const responce = await fetch("http://localhost:5000/updateFav", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, favouriteRoute }),
+  });
+
+  if (!responce.ok) {
+    throw new Error(`status: ${responce.status}`);
+  }
+
+  const updatedPerson = await responce.json(); // this is the personwithfav type so .favouriteClimb is simply the favourite route name
+
+  if (validatePersonWithFavType(updatedPerson)) {
+    return updatedPerson.favouriteClimb;
+  } else {
+    throw new Error(`invalid responce from pythonPeopleRest`);
+  }
+};
+
+export const updateJobById = async (
+  id: string,
+  newJobTitle: string,
+): Promise<boolean> => {
+  const responce = await fetch("http://localhost:4000/updateJob", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, newJobTitle }),
+  });
+
+  if (!responce.ok) {
+    throw new Error(`status: ${responce.status}`);
+  }
+
+  const success = await responce.json();
+
+  if (typeof success === "boolean") {
+    return success;
+  } else {
+    throw new Error("invalid responce from peopleRest");
   }
 };

@@ -115,4 +115,52 @@ export const climbs: ClimbingRoute[] = [
     ],
     alongTrail: "",
   },
+  {
+    routeName: "Ridge Slab",
+    difficulty: VScale.V2,
+    fontDifficulty: "5+",
+    completedBy: [
+      {
+        id: "0026",
+        name: "Bndrew",
+        age: 24,
+        job: "dev",
+      },
+    ],
+    alongTrail: "Raven Ridge",
+  },
+  {
+    routeName: "Crow Dyno",
+    difficulty: VScale.V4,
+    fontDifficulty: "6B",
+    completedBy: [
+      {
+        id: "0027",
+        name: "Cndrew",
+        age: 24,
+        job: "dev",
+      },
+      {
+        id: "0002",
+        name: "Michael",
+        age: 0,
+        job: "",
+      },
+    ],
+    alongTrail: "Raven Ridge",
+  },
+  {
+    routeName: "Feather Crimp",
+    difficulty: VScale.V5,
+    fontDifficulty: "6C",
+    completedBy: [
+      {
+        id: "0001",
+        name: "Andrew",
+        age: 24,
+        job: "dev",
+      },
+    ],
+    alongTrail: "Raven Ridge",
+  },
 ];

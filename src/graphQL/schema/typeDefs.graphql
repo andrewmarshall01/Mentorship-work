@@ -8,6 +8,12 @@ type Query {
   getClimbingRouteByName(routeName: String!): ClimbingRoute
 }
 
+type Mutation {
+  updateFavClimb(id: String!, favouriteRouteName: String!): String
+  addNewTrailRating(trailName: String!, rating: Float!): Float!
+  updateJob(id: String!, newJobTitle: String!): Boolean
+}
+
 type Person {
   id: String!
   name: String!
@@ -29,7 +35,8 @@ type HikingTrail {
   elevation: Float!
   difficulty: DificultyRanking!
   parking: Boolean
-  rating: Int
+  rating: Float
+  ratingsCount: Int
   climbingRoutes: [ClimbingRoute]
   allClimbsonTrailDiff: [VScale]!
 }
